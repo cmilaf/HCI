@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software Shop - Registro</title>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #333333;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* 1. Header Navigation Bar */
+    header {
+      background: #ffffff;
+      padding: 10px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eef0f3;
+      height: 70px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .brand-logo svg {
+      height: 38px;
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #7b7893;
+      font-size: 13px;
+      font-weight: 500;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+
+    .nav-item i {
+      font-size: 18px;
+    }
+
+    .nav-item:hover {
+      color: #4b2ca3;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .lang-select-nav {
+      border: 1px solid #d0d0d0;
+      background: #ffffff;
+      color: #7b7893;
+      font-size: 12px;
+      padding: 3px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* 2. Hero Purple Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #44248a 0%, #3e1e7e 50%, #46258d 100%);
+      color: #ffffff;
+      padding: 50px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      max-width: 800px;
+    }
+
+    .key-icon-svg {
+      width: 100px;
+      height: 50px;
+      flex-shrink: 0;
+    }
+
+    .hero-text h1 {
+      font-size: 40px;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .hero-text p {
+      font-size: 15px;
+      font-weight: 300;
+      color: #e2d9f7;
+      line-height: 1.3;
+    }
+
+    /* 3. Side Sticky Tabs */
+    .tab-agendate {
+      position: fixed;
+      left: 0;
+      top: 280px;
+      background: linear-gradient(180deg, #6c32b8, #4c2288);
+      color: #ffffff;
+      padding: 12px 10px 18px 10px;
+      border-radius: 0 12px 12px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+
+    .tab-cotizar {
+      position: fixed;
+      right: 0;
+      top: 280px;
+      background: linear-gradient(180deg, #6c32b8, #4c2288);
+      color: #ffffff;
+      padding: 12px 10px 18px 10px;
+      border-radius: 12px 0 0 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+
+    .tab-text {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .tab-cotizar .tab-text {
+      transform: rotate(0deg);
+    }
+
+    /* 4. Formulario Principal */
+    .main-container {
+      max-width: 680px;
+      margin: 30px auto 60px;
+      padding: 0 15px;
+    }
+
+    .form-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #222222;
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .col-full { width: 100%; }
+    .col-half { width: 50%; }
+    .col-1 { flex: 1; }
+    .col-2 { flex: 2; }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      position: relative;
+    }
+
+    .field-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333333;
+      margin-bottom: 4px;
+    }
+
+    .input-gray {
+      width: 100%;
+      background-color: #e5e5e5;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #222222;
+      outline: none;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .input-gray::placeholder {
+      color: #757575;
+      font-style: italic;
+    }
+
+    .input-gray:focus {
+      background-color: #ffffff;
+      border-color: #5c32b4;
+      box-shadow: 0 0 0 2px rgba(92, 50, 180, 0.15);
+    }
+
+    .field-group.has-error .input-gray {
+      border: 1.5px solid #d93025;
+      background-color: #fce8e6;
+    }
+
+    .error-msg {
+      color: #d93025;
+      font-size: 11px;
+      margin-top: 3px;
+      display: none;
+      font-weight: 600;
+    }
+
+    .field-group.has-error .error-msg {
+      display: block;
+    }
+
+    .note-text {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #222222;
+      margin: 18px 0 12px;
+    }
+
+    .radio-section {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .radio-section p {
+      font-size: 13px;
+      font-weight: 700;
+      color: #5c32b4;
+      margin-bottom: 8px;
+    }
+
+    .radio-options {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      font-size: 13px;
+      color: #444444;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: #6a3bbd;
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-submit:hover {
+      background-color: #53299e;
+    }
+
+    /* Sección de Políticas sin estilo de botón */
+    .policy-container {
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .policy-link {
+      color: #5c32b4;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .policy-link:hover {
+      color: #3e1e7e;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 8px;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .modal-content h3 {
+      color: #5c32b4;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .modal-content p {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .modal-btn {
+      background: #5c32b4;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+      font-size: 13px;
+    }
+
+    .whatsapp-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+      cursor: pointer;
+      z-index: 90;
+    }
+
+    @media (max-width: 640px) {
+      .form-row { flex-direction: column; gap: 10px; }
+      .col-half { width: 100%; }
+      nav, .nav-right { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pestañas Flotantes -->
+  <div class="tab-agendate">
+    <i class="fa-regular fa-calendar-check" style="font-size: 16px;"></i>
+    <span class="tab-text" id="tabAgendateText">Agéndate</span>
+  </div>
+
+  <div class="tab-cotizar">
+    <span class="tab-text" id="tabCotizarText">Cotizar</span>
+    <i class="fa-solid fa-file-invoice-dollar" style="font-size: 16px;"></i>
+  </div>
+
+  <!-- Header Superior -->
+  <header>
+    <a href="#" class="brand-logo">
+      <svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 5C20 5 5 18 5 30C5 42 20 55 40 55C55 55 68 47 73 36" stroke="#482396" stroke-width="4" stroke-linecap="round"/>
+        <text x="18" y="32" font-family="Arial, sans-serif" font-weight="bold" font-size="20" fill="#482396">Software</text>
+        <path d="M68 25L75 18M75 18H70M75 18V23" stroke="#482396" stroke-width="2.5" stroke-linecap="round"/>
+        <text x="35" y="48" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#482396">Shop</text>
+        <circle cx="78" cy="38" r="2" fill="#482396"/>
+      </svg>
+    </a>
+
+    <nav class="nav-center">
+      <a href="#" class="nav-item"><i class="fa-solid fa-briefcase"></i><span>Portafolios</span></a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-city"></i><span>Industrias</span></a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-handshake"></i><span>Asociados</span></a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-hand-holding-dollar"></i><span>Pagos</span></a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-headset"></i><span>Contacto</span></a>
+      <a href="#" class="nav-item"><i class="fa-solid fa-list-check"></i><span>Portales</span></a>
+    </nav>
+
+    <div class="nav-right">
+      <div class="nav-item">
+        <i class="fa-solid fa-globe"></i>
+        <select class="lang-select-nav" id="langSelector">
+          <option value="es" selected>Español</option>
+          <option value="pt">Português</option>
+        </select>
+      </div>
+      <a href="#" class="nav-item"><i class="fa-solid fa-magnifying-glass"></i><span>Buscar</span></a>
+      <a href="#" class="nav-item"><i class="fa-regular fa-user"></i><span>Entrar</span></a>
+    </div>
+  </header>
+
+  <!-- Banner Hero -->
+  <section class="hero-banner">
+    <div class="hero-content">
+      <svg class="key-icon-svg" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M35 25C35 33.2843 28.2843 40 20 40C11.7157 40 5 33.2843 5 25C5 16.7157 11.7157 10 20 10C28.2843 10 35 16.7157 35 25ZM35 25H90V35H80V25H70V35H60V25H35Z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="20" cy="25" r="4" fill="white"/>
+      </svg>
+      
+      <div class="hero-text">
+        <h1 id="heroTitle">Regístrate</h1>
+        <p id="heroDesc">en Software Shop y disfruta del<br>contenido que tenemos para ti.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formulario Principal -->
+  <main class="main-container">
+    <h2 class="form-title" id="formTitle">¡Regístrate Rápidamente!</h2>
+
+    <form id="regForm" novalidate>
+      
+      <!-- Fila 1 -->
+      <div class="form-row">
+        <div class="col-half">
+          <div class="field-group" id="grp-tipo">
+            <label for="tipo" id="lblTipo">Tipo Entidad</label>
+            <select id="tipo" class="input-gray" required>
+              <option value="" disabled selected hidden id="optTipo">Sel. Tipo Entidad</option>
+              <option value="empresa">Empresa</option>
+              <option value="academica">Académica / Educación</option>
+              <option value="independiente">Independiente</option>
+            </select>
+            <span class="error-msg" id="errTipo">Seleccione un tipo de entidad.</span>
+          </div>
+        </div>
+
+        <div class="col-half">
+          <div class="field-group" id="grp-entidad">
+            <label for="entidad" id="lblEntidad">Entidad / Empresa</label>
+            <input type="text" id="entidad" class="input-gray" placeholder="Ej. Universidad de Colima" required>
+            <span class="error-msg" id="errEntidad">Ingrese el nombre de la empresa o entidad.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 2 -->
+      <div class="form-row">
+        <div class="col-half">
+          <div class="field-group" id="grp-nombre">
+            <label for="nombre" id="lblNombre">Nombre</label>
+            <input type="text" id="nombre" class="input-gray" placeholder="Ej. Labubu" required>
+            <span class="error-msg" id="errNombre">Ingrese su nombre.</span>
+          </div>
+        </div>
+
+        <div class="col-half">
+          <div class="field-group" id="grp-apellido">
+            <label for="apellido" id="lblApellido">Apellido</label>
+            <input type="text" id="apellido" class="input-gray" placeholder="Ej. Peralta" required>
+            <span class="error-msg" id="errApellido">Ingrese su apellido.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 3 -->
+      <div class="form-row">
+        <div class="col-full">
+          <div class="field-group" id="grp-ciudad">
+            <label for="ciudad" id="lblCiudad">Ciudad</label>
+            <input type="text" id="ciudad" class="input-gray" placeholder="Ej. Colima" required>
+            <span class="error-msg" id="errCiudad">Indique su ciudad de residencia.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 4 -->
+      <div class="form-row">
+        <div class="col-1">
+          <div class="field-group" id="grp-indicativo">
+            <label for="indicativo" id="lblIndicativo">Indicativo</label>
+            <input type="text" id="indicativo" class="input-gray" placeholder="Ej. +52" required>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="field-group" id="grp-telefono">
+            <label for="telefono" id="lblTelefono">Teléfono / Celular</label>
+            <input type="tel" id="telefono" class="input-gray" placeholder="Ej. 3123161075" required>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="field-group">
+            <label for="ext" id="lblExt">Extensión (Opcional)</label>
+            <input type="text" id="ext" class="input-gray" placeholder="Ej. 102">
+          </div>
+        </div>
+      </div>
+      <div class="field-group" id="grp-phone-err">
+        <span class="error-msg" id="errPhone">Ingrese un indicativo y teléfono válido.</span>
+      </div>
+
+      <!-- Fila 5 -->
+      <div class="form-row">
+        <div class="col-full">
+          <div class="field-group" id="grp-email">
+            <label for="email" id="lblEmail">Correo Electrónico</label>
+            <input type="email" id="email" class="input-gray" placeholder="Ej. usuario@dominio.com" required>
+            <span class="error-msg" id="errEmail">Ingrese un correo electrónico válido (ejemplo: usuario@dominio.com).</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="note-text" id="noteText">Se deben completar todos los campos del formulario</p>
+
+      <!-- Radios -->
+      <div class="radio-section">
+        <p id="radioQuestion">¿Deseas recibir correos con información de los productos del portafolio de tu interés?</p>
+        <div class="radio-options">
+          <label><input type="radio" name="newsletter" value="si" checked> <span id="radioYes">Sí, Gracias</span></label>
+          <label><input type="radio" name="newsletter" value="no"> <span id="radioNo">No, Gracias</span></label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="btnSubmit">Registrar Información</button>
+
+      <!-- Enlace directo a políticas sin caja ni sombras -->
+      <div class="policy-container">
+        <a class="policy-link" id="openPolicyModal">Conozca nuestras políticas de tratamiento de datos</a>
+      </div>
+
+    </form>
+  </main>
+
+  <div class="whatsapp-widget">💬</div>
+
+  <!-- Modal -->
+  <div class="modal" id="policyModal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Política de Tratamiento de Datos</h3>
+      <p id="modalBody">Sus datos personales están seguros en Software Shop y únicamente serán utilizados para la gestión de productos y soporte solicitado de acuerdo con la normatividad vigente.</p>
+      <button class="modal-btn" id="closePolicyModal">Entendido</button>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('regForm');
+    const modal = document.getElementById('policyModal');
+    const openLink = document.getElementById('openPolicyModal');
+    const closeBtn = document.getElementById('closePolicyModal');
+    const langSelector = document.getElementById('langSelector');
+
+    openLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.style.display = 'flex';
+    });
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+
+    // Mapeo de traducciones
+    const translations = {
+      es: {
+        formTitle: "¡Regístrate Rápidamente!",
+        lblTipo: "Tipo Entidad",
+        optTipo: "Sel. Tipo Entidad",
+        lblEntidad: "Entidad / Empresa",
+        phEntidad: "Ej. Universidad de Colima",
+        lblNombre: "Nombre",
+        phNombre: "Ej. Silvia",
+        lblApellido: "Apellido",
+        phApellido: "Ej. Fajardo",
+        lblCiudad: "Ciudad",
+        phCiudad: "Ej. Colima",
+        lblIndicativo: "Indicativo",
+        phIndicativo: "Ej. +52",
+        lblTelefono: "Teléfono / Celular",
+        phTelefono: "Ej. 3123161075",
+        lblExt: "Extensión",
+        phExt: "Ej. 102",
+        lblEmail: "Correo Electrónico",
+        phEmail: "Ej. usuario@dominio.com",
+        noteText: "Se deben completar todos los campos del formulario",
+        radioQuestion: "¿Deseas recibir correos con información de los productos del portafolio de tu interés?",
+        radioYes: "Sí, Gracias",
+        radioNo: "No, Gracias",
+        btnSubmit: "Registrar Información",
+        policyText: "Conozca nuestras políticas de tratamiento de datos",
+        heroTitle: "Regístrate",
+        heroDesc: "en Software Shop y disfruta del<br>contenido que tenemos para ti.",
+        tabAgendate: "Agéndate",
+        tabCotizar: "Cotizar"
+      },
+      pt: {
+        formTitle: "Cadastre-se Rapidamente!",
+        lblTipo: "Tipo de Entidade",
+        optTipo: "Sel. Tipo de Entidade",
+        lblEntidad: "Entidade / Empresa",
+        phEntidad: "Ex. Universidade de Colima",
+        lblNombre: "Nome",
+        phNombre: "Ex. Silvia",
+        lblApellido: "Sobrenome",
+        phApellido: "Ex. Fajardo",
+        lblCiudad: "Cidade",
+        phCiudad: "Ex. Colima",
+        lblIndicativo: "DDI/DDD",
+        phIndicativo: "Ex. +55",
+        lblTelefono: "Fone / Celular",
+        phTelefono: "Ex. 11987654321",
+        lblExt: "Extensão",
+        phExt: "Ex. 102",
+        lblEmail: "Correio Eletrônico",
+        phEmail: "Ex. usuario@dominio.com",
+        noteText: "Todos os campos do formulário devem ser preenchidos",
+        radioQuestion: "Deseja receber e-mails com informações sobre os produtos de seu interesse?",
+        radioYes: "Sim, Obrigado",
+        radioNo: "Não, Obrigado",
+        btnSubmit: "Registrar Informação",
+        policyText: "Conheça nossas políticas de tratamento de dados",
+        heroTitle: "Cadastre-se",
+        heroDesc: "na Software Shop e aproveite o<br>conteúdo que temos para você.",
+        tabAgendate: "Agende-se",
+        tabCotizar: "Cotar"
+      }
+    };
+
+    langSelector.addEventListener('change', (e) => {
+      const lang = e.target.value;
+      const t = translations[lang];
+
+      document.getElementById('formTitle').innerText = t.formTitle;
+      document.getElementById('lblTipo').innerText = t.lblTipo;
+      document.getElementById('optTipo').innerText = t.optTipo;
+      document.getElementById('lblEntidad').innerText = t.lblEntidad;
+      document.getElementById('entidad').placeholder = t.phEntidad;
+      document.getElementById('lblNombre').innerText = t.lblNombre;
+      document.getElementById('nombre').placeholder = t.phNombre;
+      document.getElementById('lblApellido').innerText = t.lblApellido;
+      document.getElementById('apellido').placeholder = t.phApellido;
+      document.getElementById('lblCiudad').innerText = t.lblCiudad;
+      document.getElementById('ciudad').placeholder = t.phCiudad;
+      document.getElementById('lblIndicativo').innerText = t.lblIndicativo;
+      document.getElementById('indicativo').placeholder = t.phIndicativo;
+      document.getElementById('lblTelefono').innerText = t.lblTelefono;
+      document.getElementById('telefono').placeholder = t.phTelefono;
+      document.getElementById('lblExt').innerText = t.lblExt;
+      document.getElementById('ext').placeholder = t.phExt;
+      document.getElementById('lblEmail').innerText = t.lblEmail;
+      document.getElementById('email').placeholder = t.phEmail;
+      document.getElementById('noteText').innerText = t.noteText;
+      document.getElementById('radioQuestion').innerText = t.radioQuestion;
+      document.getElementById('radioYes').innerText = t.radioYes;
+      document.getElementById('radioNo').innerText = t.radioNo;
+      document.getElementById('btnSubmit').innerText = t.btnSubmit;
+      document.getElementById('openPolicyModal').innerText = t.policyText;
+      document.getElementById('heroTitle').innerText = t.heroTitle;
+      document.getElementById('heroDesc').innerHTML = t.heroDesc;
+      document.getElementById('tabAgendateText').innerText = t.tabAgendate;
+      document.getElementById('tabCotizarText').innerText = t.tabCotizar;
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let isValid = true;
+
+      const fields = [
+        { id: 'tipo', grp: 'grp-tipo' },
+        { id: 'entidad', grp: 'grp-entidad' },
+        { id: 'nombre', grp: 'grp-nombre' },
+        { id: 'apellido', grp: 'grp-apellido' },
+        { id: 'ciudad', grp: 'grp-ciudad' },
+        { id: 'email', grp: 'grp-email' }
+      ];
+
+      document.querySelectorAll('.field-group').forEach(el => el.classList.remove('has-error'));
+
+      fields.forEach(f => {
+        const input = document.getElementById(f.id);
+        const grp = document.getElementById(f.grp);
+        if (!input.value.trim()) {
+          grp.classList.add('has-error');
+          isValid = false;
+        }
+      });
+
+      const ind = document.getElementById('indicativo');
+      const tel = document.getElementById('telefono');
+      if (!ind.value.trim() || !tel.value.trim()) {
+        document.getElementById('grp-phone-err').classList.add('has-error');
+        isValid = false;
+      }
+
+      const email = document.getElementById('email');
+      if (email.value && !/\S+@\S+\.\S+/.test(email.value)) {
+        document.getElementById('grp-email').classList.add('has-error');
+        isValid = false;
+      }
+
+      if (isValid) {
+        alert('¡Información registrada con éxito!');
+        form.reset();
+      }
+    });
+
+    document.querySelectorAll('.input-gray').forEach(input => {
+      input.addEventListener('input', () => {
+        const parent = input.closest('.field-group');
+        if (parent) parent.classList.remove('has-error');
+        document.getElementById('grp-phone-err').classList.remove('has-error');
+      });
+    });
+  </script>
+</body>
+</html>
